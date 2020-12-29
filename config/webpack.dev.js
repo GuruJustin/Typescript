@@ -1,17 +1,23 @@
 const path = require("path")
+const webpack = require("webpack")
 
 module.exports = {
   entry: {
-    main: ["core-js/fn/promise","./src/main.js"]
+    main: ["./src/main.js"]
   },
   mode: "development",
   output: {
     filename: "[name]-bundle.js",
-    path: path.resolve(__dirname, "../dist")
+    path: path.resolve(__dirname, "../dist"),
+    publicPath: "/"
   },
-  devServer: {  
+  devServer: {
     contentBase: "dist",
-    overlay: true
+    overlay: true,
+    hot: true,
+    stats: {
+      colors: true
+    }
   },
   module: {
     rules: [
@@ -60,5 +66,6 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 }
